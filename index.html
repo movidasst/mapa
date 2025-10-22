@@ -3,20 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>La Movida de SST — Mapa de Profesionales</title>
+  <title>La Movida de SST — Mapa de Profesionales (FIX)</title>
   <link rel="icon" href="https://assets.poap.xyz/74cdc955-1104-48ef-ad81-22f71680e80f.png" />
+  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin>
+  <!-- MarkerCluster CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    html,body{height:100%} 
-    body{background:#f1f5f9;color:#0f172a} /* bg-slate-50 */
-    #map{min-height:72vh} .glass{backdrop-filter:blur(8px);background:rgba(255,255,255,.66)}
-    .marker-cluster-small{background:rgba(0,176,80,.2)} .marker-cluster-small div{background:rgba(0,176,80,.85)}
-    .marker-cluster-medium{background:rgba(0,120,220,.2)} .marker-cluster-medium div{background:rgba(0,120,220,.85)}
-    .marker-cluster-large{background:rgba(255,140,0,.2)} .marker-cluster-large div{background:rgba(255,140,0,.9)}
-    #alert{display:none} /* Ocultar por defecto */
+    html,body{height:100%}
+    body{background:#f1f5f9;color:#0f172a}
+    #map{min-height:72vh}
+    .glass{backdrop-filter:blur(8px);background:rgba(255,255,255,.66)}
+    .marker-cluster-small{background:rgba(0,176,80,.2)}
+    .marker-cluster-small div{background:rgba(0,176,80,.85)}
+    .marker-cluster-medium{background:rgba(0,120,220,.2)}
+    .marker-cluster-medium div{background:rgba(0,120,220,.85)}
+    .marker-cluster-large{background:rgba(255,140,0,.2)}
+    .marker-cluster-large div{background:rgba(255,140,0,.9)}
+    #alert{display:none}
   </style>
 </head>
 <body>
@@ -35,15 +41,15 @@
     <p class="mt-3 text-slate-600 md:text-lg">Explora, conecta y colabora en Venezuela y otros países. Filtra por país, estado y profesión.</p>
 
     <div class="mt-6 flex flex-col sm:flex-row gap-4">
-      <a href="https://forms.gle/6sCy9x6EBA8V6y8TA" target="_blank" rel="noopener noreferrer" 
+      <a href="https://forms.gle/6sCy9x6EBA8V6y8TA" target="_blank" rel="noopener noreferrer"
          class="inline-block w-full sm:w-auto rounded-lg bg-emerald-600 text-white font-semibold px-5 py-3 text-center shadow-md hover:bg-emerald-700 transition duration-200">
         Regístrate en el Mapa
       </a>
-      <a href="https://whatsapp.com/channel/0029Va0mlH5Jf05mrcCz8r3e" target="_blank" rel="noopener noreferrer" 
+      <a href="https://whatsapp.com/channel/0029Va0mlH5Jf05mrcCz8r3e" target="_blank" rel="noopener noreferrer"
          class="inline-block w-full sm:w-auto rounded-lg bg-emerald-600 text-white font-semibold px-5 py-3 text-center shadow-md hover:bg-emerald-700 transition duration-200">
         Únete al Canal de WhatsApp
       </a>
-      <a href="https://portal.movidasst.com/" target="_blank" rel="noopener noreferrer" 
+      <a href="https://portal.movidasst.com/" target="_blank" rel="noopener noreferrer"
          class="inline-block w-full sm:w-auto rounded-lg bg-white text-emerald-600 border border-emerald-600 font-semibold px-5 py-3 text-center shadow-md hover:bg-emerald-50 transition duration-200">
         Acceso al Portal Movida SST
       </a>
@@ -60,7 +66,6 @@
 
 <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 p-4">
   <section class="md:col-span-4 lg:col-span-3 space-y-3">
-    <!-- ***** CAMBIO DISEÑO: Caja de Filtros y Totales unificada ***** -->
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
       <h2 class="font-semibold mb-3">Filtros</h2>
       <div class="space-y-3">
@@ -75,20 +80,15 @@
             <select id="estado" class="mt-1 w-full rounded-lg border-slate-300 focus:border-emerald-600 focus:ring-emerald-600"><option value="">Todos</option></select>
           </label>
         </div>
-        
         <label class="block text-sm">Profesión
           <select id="especialidad" class="mt-1 w-full rounded-lg border-slate-300 focus:border-emerald-600 focus:ring-emerald-600">
             <option value="">Todas</option>
-            <!-- Las profesiones se cargarán aquí por JS -->
           </select>
         </label>
-        
         <div class="flex items-center gap-3">
           <label class="inline-flex items-center gap-2 text-sm"><input id="heatToggle" type="checkbox" class="rounded text-emerald-600" checked><span>Ver capa de calor</span></label>
         </div>
       </div>
-      
-      <!-- ***** CAMBIO DISEÑO: Sección de Totales movida aquí ***** -->
       <hr class="my-4 border-slate-200">
       <h2 class="font-semibold mb-2">Totales</h2>
       <div class="space-y-1 text-sm text-slate-600">
@@ -96,24 +96,18 @@
         <div>Países representados: <b id="lblPaises">0</b></div>
         <div>Estados de Venezuela: <b id="lblEstados">0</b></div>
       </div>
-      <!-- ***** FIN CAMBIO DISEÑO ***** -->
-      
       <hr class="my-4 border-slate-200">
       <div class="flex gap-2">
         <button id="btnLimpiar" class="w-full rounded-lg border border-slate-300 px-3 py-2 hover:bg-slate-50">Limpiar</button>
       </div>
     </div>
-    <!-- ***** CAMBIO DISEÑO: Caja de Totales separada ELIMINADA ***** -->
-    
   </section>
 
   <section class="md:col-span-8 lg:col-span-9">
     <div id="map" class="rounded-2xl overflow-hidden border border-slate-200"></div>
-    
     <div id="map-feedback" style="display:none;" class="p-8 text-center text-slate-500">
       No se encontraron profesionales con estos filtros. Intenta con otra búsqueda.
     </div>
-    
   </section>
 </main>
 
@@ -127,66 +121,45 @@
   </div>
 </footer>
 
+<!-- JS libs (defer) -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin defer></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" defer></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" defer></script>
 
 <script>
   // Base de conexión (auto)
-  var WEBAPP_BASE = (location.href.split('?')[0]); // usa SIEMPRE el deployment actual
+  var WEBAPP_BASE = (location.href.split('?')[0]);
 
   var RAW = []; var MAP, CLUSTERS, HEAT; var heatEnabled = true;
   var ESTADOS_VE = ['Amazonas','Anzoátegui','Apure','Aragua','Barinas','Bolívar','Carabobo','Cojedes','Delta Amacuro','Distrito Capital','Falcón','Guárico','Lara','Mérida','Miranda','Monagas','Nueva Esparta','Portuguesa','Sucre','Táchira','Trujillo','La Guaira','Yaracuy','Zulia'];
 
-  // ***** NUEVO: Mapa de Nombres de País a Códigos ISO 3166-1 alpha-2 *****
-  var COUNTRY_ISO_MAP = {
-    'venezuela': 'VE',
-    'ecuador': 'EC',
-    'colombia': 'CO',
-    'peru': 'PE',
-    'chile': 'CL',
-    'argentina': 'AR',
-    'bolivia': 'BO',
-    'paraguay': 'PY',
-    'uruguay': 'UY',
-    'brasil': 'BR',
-    'mexico': 'MX',
-    'panama': 'PA',
-    'costa rica': 'CR',
-    'nicaragua': 'NI',
-    'honduras': 'HN',
-    'el salvador': 'SV',
-    'guatemala': 'GT',
-    'cuba': 'CU',
-    'puerto rico': 'PR',
-    'republica dominicana': 'DO',
-    'españa': 'ES',
-    'estados unidos': 'US',
-    'canada': 'CA'
-    // Añadir más países aquí si es necesario
-  };
+  var COUNTRY_ISO_MAP = { 'venezuela':'VE','ecuador':'EC','colombia':'CO','peru':'PE','chile':'CL','argentina':'AR','bolivia':'BO','paraguay':'PY','uruguay':'UY','brasil':'BR','mexico':'MX','panama':'PA','costa rica':'CR','nicaragua':'NI','honduras':'HN','el salvador':'SV','guatemala':'GT','cuba':'CU','puerto rico':'PR','republica dominicana':'DO','españa':'ES','estados unidos':'US','canada':'CA' };
 
   document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('yearNow').textContent = new Date().getFullYear();
 
-    // pinta estados
     var selEstado = document.getElementById('estado'); ESTADOS_VE.forEach(function(e){ var o=document.createElement('option'); o.value=e; o.textContent=e; selEstado.appendChild(o); });
 
-    // eventos
     document.getElementById('nombre').addEventListener('keyup', applyFilters);
     document.getElementById('pais').addEventListener('change', applyFilters);
     document.getElementById('estado').addEventListener('change', applyFilters);
     document.getElementById('especialidad').addEventListener('change', applyFilters);
-    
-    document.getElementById('btnLimpiar').addEventListener('click', resetFilters); 
-    
-    document.getElementById('pais').addEventListener('change', toggleEstado); // Se mantiene para la lógica visual
+    document.getElementById('btnLimpiar').addEventListener('click', resetFilters);
+    document.getElementById('pais').addEventListener('change', toggleEstado);
     document.getElementById('heatToggle').addEventListener('change', function(e){ heatEnabled = !!e.target.checked; renderCurrent(); });
 
-    // mapa
+    // === MAPA ===
     MAP = L.map('map', { zoomControl:false, scrollWheelZoom:true }).setView([10,-66],4);
     L.control.zoom({position:'bottomright'}).addTo(MAP);
-    L.tileLayer('https{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18, attribution:'&copy; OpenStreetMap'}).addTo(MAP);
+
+    // *** FIX 1: URL correcta de tiles + retina ***
+    // Recomendado por OSM: usar dominio sin subdominios.
+    // https://tile.openstreetmap.org/{z}/{x}/{y}.png
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      detectRetina: true, // alta definición en pantallas retina
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(MAP);
 
     // Cargar por Apps Script si estamos dentro; si no, JSON fallback
     if (window.google && google.script && google.script.run){
@@ -201,13 +174,9 @@
         })
         .getMapData();
     } else {
-      // NO ESTAMOS en Google Apps Script (entorno local/blob). 
       showAlert('Entorno local detectado. Usando JSON fallback...');
-      
-      var DEPLOYED_URL = "https://script.google.com/macros/s/AKfycbx4YD4rLguFuvXCgQIAMlI0jQz9Y-9S4nVLCZSR64czbXXgl38jy9zuoFppSpOlylut/exec";
-      
+      var DEPLOYED_URL = 'https://script.google.com/macros/s/AKfycbx4YD4rLguFuvXCgQIAMlI0jQz9Y-9S4nVLCZSR64czbXXgl38jy9zuoFppSpOlylut/exec';
       var jsonURL_local = DEPLOYED_URL + (DEPLOYED_URL.indexOf('?')>-1 ? '&':'?') + 'mode=json';
-
       tryJsonFallback(jsonURL_local);
     }
   });
@@ -226,14 +195,14 @@
     updateHeroStats(rows); 
     render(rows); 
   }
-  
-  function showAlert(t){ console.log("Alerta:", t); } 
+
+  function showAlert(t){ console.log('Alerta:', t); }
 
   function resetFilters(){ 
     document.getElementById('nombre').value=''; 
     document.getElementById('pais').value=''; 
     document.getElementById('estado').value=''; 
-    document.getElementById('especialidad').value=''; // Esto resetea el <select>
+    document.getElementById('especialidad').value='';
     document.getElementById('heatToggle').checked=true; 
     heatEnabled=true; 
     toggleEstado(); 
@@ -241,36 +210,30 @@
   }
 
   function populatePais(rows){
-    var sel=document.getElementById('pais'); sel.innerHTML='<option value=\"\">Todos</option>';
+    var sel=document.getElementById('pais'); sel.innerHTML='<option value="">Todos</option>';
     var set=new Set(); rows.forEach(function(r){ if(r.pais) set.add(r.pais); });
     Array.from(set).sort().forEach(function(p){ var o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); });
     toggleEstado();
   }
-  
+
   function populateProfesion(rows){
     var sel = document.getElementById('especialidad');
-    while (sel.options.length > 1) {
-      sel.remove(1);
-    }
-    
+    while (sel.options.length > 1) { sel.remove(1); }
     var set = new Set();
     rows.forEach(function(r){ 
-      var prof = String(r.especialidad || '').trim(); // 'especialidad' es el key que viene de Code.gs
+      var prof = String(r.especialidad || '').trim();
       if(prof) set.add(prof); 
     });
-    
     Array.from(set).sort().forEach(function(p){ 
-      var o=document.createElement('option'); 
-      o.value=p; 
-      o.textContent=p; 
-      sel.appendChild(o); 
+      var o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); 
     });
   }
-  
-  // ***** CORRECCIÓN DE SYNTAX ERROR *****
-  // Se corrigió 'block : 'none' (que era un string) a 'block' : 'none' (la sintaxis correcta del ternario)
-  function toggleEstado(){ var p=(document.getElementById('pais').value||'').toLowerCase(); document.getElementById('estadoBlock').style.display = (!p || p==='venezuela') ? 'block' : 'none'; }
-  
+
+  function toggleEstado(){
+    var p=(document.getElementById('pais').value||'').toLowerCase();
+    document.getElementById('estadoBlock').style.display = (!p || p==='venezuela') ? 'block' : 'none';
+  }
+
   function updateHeroStats(rows) {
     var paisSet = new Set();
     var edoSet = new Set();
@@ -287,7 +250,7 @@
     var nombre=(document.getElementById('nombre').value||'').trim().toLowerCase();
     var pais=document.getElementById('pais').value;
     var estado=document.getElementById('estado').value;
-    var esp=(document.getElementById('especialidad').value||'').trim().toLowerCase(); // .value funciona para <select>
+    var esp=(document.getElementById('especialidad').value||'').trim().toLowerCase();
 
     var out = RAW.filter(function(r){
       var rPais = String(r.pais||'').trim().toLowerCase();
@@ -297,16 +260,13 @@
 
       if (pais && rPais !== pais.toLowerCase()) return false;
       if ((!pais || pais.toLowerCase()==='venezuela') && estado && rEstado !== estado.toLowerCase()) return false;
-      
       if (nombre && rNombre.indexOf(nombre)===-1) return false;
       if (esp && rEsp !== esp) return false; 
-      
       return true;
     });
     render(out);
   }
 
-  // popup + fotos
   function normalizePhotoUrl(u){
     u = String(u||'').trim(); if (!u) return '';
     try{
@@ -317,23 +277,19 @@
       return u;
     }catch(e){ return u; }
   }
-  function makeFallbackDataURI(){ var svg='<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"600\" height=\"360\"><rect width=\"100%\" height=\"100%\" fill=\"#e2e8f0\"/><text x=\"50%\" y=\"50%\" dominant-baseline=\"middle\" text-anchor=\"middle\" fill=\"#64748b\" font-family=\"Arial,Helvetica,sans-serif\" font-size=\"20\">Foto no disponible</text></svg>'; return 'data:image/svg+xml;utf8,'+encodeURIComponent(svg); }
+  function makeFallbackDataURI(){ var svg='<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360"><rect width="100%" height="100%" fill="#e2e8f0"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#64748b" font-family="Arial,Helvetica,sans-serif" font-size="20">Foto no disponible</text></svg>'; return 'data:image/svg+xml;utf8,'+encodeURIComponent(svg); }
 
   var __lastRows=[]; function renderCurrent(){ render(__lastRows); }
-  
+
   function render(rows){
     __lastRows = rows || [];
 
     var feedbackEl = document.getElementById('map-feedback');
-    if (__lastRows.length === 0) {
-      feedbackEl.style.display = 'block';
-    } else {
-      feedbackEl.style.display = 'none';
-    }
+    feedbackEl.style.display = (__lastRows.length === 0) ? 'block' : 'none';
 
     if (CLUSTERS){ CLUSTERS.clearLayers(); MAP.removeLayer(CLUSTERS); }
     if (HEAT){ MAP.removeLayer(HEAT); HEAT=null; }
-    
+
     CLUSTERS = L.markerClusterGroup({ disableClusteringAtZoom:12, spiderfyOnMaxZoom:true });
 
     var heatPts=[]; var edoSet=new Set(); var paisSet=new Set();
@@ -351,134 +307,93 @@
     });
 
     CLUSTERS.addTo(MAP);
-    MAP.invalidateSize(); 
-    
+    MAP.invalidateSize();
+
+    // *** FIX 2: capa de calor menos invasiva (evita aspecto "difuminado" general) ***
     var addHeatLayer = function() {
-        if (HEAT) { MAP.removeLayer(HEAT); HEAT = null; } 
-        if (heatEnabled && heatPts.length){
-          try {
-            var mapSize = MAP.getSize();
-            if (mapSize.x > 0 && mapSize.y > 0) {
-              HEAT = L.heatLayer(heatPts,{radius:18,blur:16,minOpacity:0.25}).addTo(MAP); 
-            } else {
-              console.warn("Se evitó dibujar capa de calor en canvas de tamaño 0.");
-            }
-          } catch (e) {
-            console.error("Error al añadir capa de calor:", e);
+      if (HEAT) { MAP.removeLayer(HEAT); HEAT = null; }
+      if (heatEnabled && heatPts.length){
+        try {
+          var mapSize = MAP.getSize();
+          if (mapSize.x > 0 && mapSize.y > 0) {
+            HEAT = L.heatLayer(heatPts, { radius: 16, blur: 12, minOpacity: 0.15 }).addTo(MAP);
           }
-        }
-    };
-    
-    setTimeout(function() {
-      var bounds=CLUSTERS.getBounds(); 
-      if(bounds&&bounds.isValid()) {
-          MAP.once('moveend', addHeatLayer);
-          MAP.fitBounds(bounds.pad(0.1), { maxZoom: 10 });
-      } else {
-          addHeatLayer();
+        } catch (e) { console.error('Error al añadir capa de calor:', e); }
       }
-    }, 0); 
-    
-    var totalFiltrado = String(__lastRows.length);
-    var paisesFiltrados = String(paisSet.size);
-    var estadosFiltrados = String(edoSet.size);
-    
-    document.getElementById('lblCount').textContent = totalFiltrado;
-    document.getElementById('lblPaises').textContent = paisesFiltrados;
-    document.getElementById('lblEstados').textContent = estadosFiltrados;
-    
-    document.getElementById('statTotal').textContent = totalFiltrado;
-    document.getElementById('statPaises').textContent = paisesFiltrados;
-    document.getElementById('statEstados').textContent = estadosFiltrados;
+    };
+
+    setTimeout(function() {
+      var bounds=CLUSTERS.getBounds();
+      if(bounds&&bounds.isValid()) {
+        MAP.once('moveend', addHeatLayer);
+        MAP.fitBounds(bounds.pad(0.1), { maxZoom: 10 });
+      } else {
+        addHeatLayer();
+      }
+    }, 0);
+
+    document.getElementById('lblCount').textContent = String(__lastRows.length);
+    document.getElementById('lblPaises').textContent = String(paisSet.size);
+    document.getElementById('lblEstados').textContent = String(edoSet.size);
+
+    document.getElementById('statTotal').textContent = String(__lastRows.length);
+    document.getElementById('statPaises').textContent = String(paisSet.size);
+    document.getElementById('statEstados').textContent = String(edoSet.size);
   }
 
   function popupHTML(r){
-    var name=esc(r.nombre||'Sin nombre'); 
-    var esp=esc(r.especialidad||''); 
-    
-    // ***** CAMBIO: Añadir bandera de país *****
-    var flag = getFlagForCountry(r.pais || ''); // Obtiene el emoji 🇻🇪
-    var locBits=[]; 
-    if(r.pais) locBits.push(flag + ' ' + esc(r.pais)); // <-- Bandera añadida aquí
-    if(r.estado) locBits.push(esc(r.estado)); 
-    var loc=locBits.join(' · ');
-    // ***** FIN CAMBIO *****
-    
-    var inst=r.institucion?'<div style=\"font-size:12px;color:#64748b;margin-bottom:6px\">'+esc(r.institucion)+'</div>':'';
-    var email=r.email?'<div style=\"font-size:12px;margin:6px 0\">📧 <a href=\"mailto:'+esc(r.email)+'\">'+esc(r.email)+'</a></div>':'';
-    var raw=String(r.foto_url||'').trim(); var url=normalizePhotoUrl(raw); var fallback=makeFallbackDataURI();
-    
-    var foto=url?'<div style=\"margin-bottom:8px\"><a href=\"'+esc(raw)+'\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Ver foto en tamaño completo\"><img src=\"'+esc(url)+'\" loading=\"lazy\" referrerpolicy=\"no-referrer\" alt=\"Foto\" onerror=\"this.onerror=null;this.src=\''+fallback+'\'\" style=\"max-width:100%;height:auto;border-radius:10px;border:1px solid #e2e8f0;cursor:pointer;\"/></a></div>':'';
+    var name=esc(r.nombre||'Sin nombre');
+    var esp=esc(r.especialidad||'');
 
-    // --- NUEVOS CAMPOS ---
-    var codigo = r.codigo ? '<div style=\"font-size:11px;color:#64748b;margin-bottom:6px;font-family:monospace;letter-spacing:0.5px;\">CÓDIGO: '+esc(r.codigo)+'</div>' : '';
-    
+    var flag = getFlagForCountry(r.pais || '');
+    var locBits=[]; 
+    if(r.pais) locBits.push(flag + ' ' + esc(r.pais));
+    if(r.estado) locBits.push(esc(r.estado));
+    var loc=locBits.join(' · ');
+
+    var inst=r.institucion?'<div style="font-size:12px;color:#64748b;margin-bottom:6px">'+esc(r.institucion)+'</div>':'';
+    var email=r.email?'<div style="font-size:12px;margin:6px 0">📧 <a href="mailto:'+esc(r.email)+'">'+esc(r.email)+'</a></div>':'';
+    var raw=String(r.foto_url||'').trim(); var url=normalizePhotoUrl(raw); var fallback=makeFallbackDataURI();
+    var foto=url?'<div style="margin-bottom:8px"><a href="'+esc(raw)+'" target="_blank" rel="noopener noreferrer" title="Ver foto en tamaño completo"><img src="'+esc(url)+'" loading="lazy" referrerpolicy="no-referrer" alt="Foto" onerror="this.onerror=null;this.src=\''+fallback+'\'" style="max-width:100%;height:auto;border-radius:10px;border:1px solid #e2e8f0;cursor:pointer;"/></a></div>':'';
+
+    var codigo = r.codigo ? '<div style="font-size:11px;color:#64748b;margin-bottom:6px;font-family:monospace;letter-spacing:0.5px;">CÓDIGO: '+esc(r.codigo)+'</div>' : '';
+
     var status = '';
     var rStatus = esc(String(r.status || '').trim());
     if (rStatus) {
-        var statusColor = '#334155'; // Gris por defecto
-        if (rStatus.toLowerCase() === 'activo') {
-            statusColor = '#15803d'; // Verde
-        } else if (rStatus.toLowerCase() === 'administrador') {
-            statusColor = '#1d4ed8'; // Azul
-        }
-        status = '<div style=\"font-size:12px;color:'+statusColor+';font-weight:600;margin-bottom:4px;text-transform:uppercase;\">'+rStatus+'</div>';
+      var statusColor = '#334155';
+      if (rStatus.toLowerCase() === 'activo') statusColor = '#15803d';
+      else if (rStatus.toLowerCase() === 'administrador') statusColor = '#1d4ed8';
+      status = '<div style="font-size:12px;color:'+statusColor+';font-weight:600;margin-bottom:4px;text-transform:uppercase;">'+rStatus+'</div>';
     }
-    // --- FIN NUEVOS CAMPOS ---
 
-    return '<div style=\"font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;max-width:320px\">'+foto+
-      '<div style=\"font-weight:700;margin-bottom:2px\">'+name+'</div>'+
-      '<div style=\"font-size:12px;color:#15803d;font-weight:600;margin-bottom:6px\">Profesional de SST</div>'+
-      (esp?'<div style=\"color:#334155;margin-bottom:6px\">🧑‍💼 '+esp+'</div>':'')+
-      (loc?'<div style=\"font-size:12px;color:#475569;margin-bottom:6px\">📍 '+loc+'</div>':'')+ // 'loc' ahora incluye la bandera
-      status +  // <-- Añadido aquí
-      codigo +  // <-- Añadido aquí
+    return '<div style="font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;max-width:320px">'+foto+
+      '<div style="font-weight:700;margin-bottom:2px">'+name+'</div>'+
+      '<div style="font-size:12px;color:#15803d;font-weight:600;margin-bottom:6px">Profesional de SST</div>'+
+      (esp?'<div style="color:#334155;margin-bottom:6px">🧑‍💼 '+esp+'</div>':'')+
+      (loc?'<div style="font-size:12px;color:#475569;margin-bottom:6px">📍 '+loc+'</div>':'')+
+      status+
+      codigo+
       inst+email+'</div>';
   }
 
   function esc(s){ 
-    var map = {
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      '\'':'&#39;'
-    };
-    var reg = /[&<>"']/g;
-    return String(s).replace(reg, function(m){ 
-      return map[m] || ''; 
-    }); 
+    var map = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'};
+    var reg = /[&<>"']/g; return String(s).replace(reg, function(m){ return map[m] || ''; }); 
   }
 
-  // ***** NUEVAS FUNCIONES DE AYUDA PARA BANDERAS *****
-  
-  /**
-   * Convierte un código ISO de 2 letras (ej: "VE") en un emoji de bandera (ej: "🇻🇪")
-   * @param {string} isoCode - El código ISO (ej: "VE", "CO", "US")
-   * @returns {string} El emoji de la bandera
-   */
   function getFlagEmoji(isoCode) {
     if (!isoCode || isoCode.length !== 2) return '';
     try {
-      // Convierte cada letra a su punto de código Unicode regional
       return String.fromCodePoint(isoCode.toUpperCase().charCodeAt(0) - 65 + 127462) +
              String.fromCodePoint(isoCode.toUpperCase().charCodeAt(1) - 65 + 127462);
-    } catch (e) {
-      return '';
-    }
+    } catch (e) { return ''; }
   }
-
-  /**
-   * Obtiene un emoji de bandera para un nombre de país
-   * @param {string} countryName - El nombre del país (ej: "Venezuela")
-   * @returns {string} El emoji de la bandera (ej: "🇻🇪") o un globo terráqueo (🌍) si no se encuentra
-   */
   function getFlagForCountry(countryName) {
     var normalized = String(countryName || '').trim().toLowerCase();
     var iso = COUNTRY_ISO_MAP[normalized];
-    return iso ? getFlagEmoji(iso) : '🌍'; // 🌍 es el fallback si no se encuentra
+    return iso ? getFlagEmoji(iso) : '🌍';
   }
-  
 </script>
 </body>
 </html>
